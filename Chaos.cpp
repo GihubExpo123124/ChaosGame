@@ -15,6 +15,20 @@
 using namespace sf;
 using namespace std;
 
+unsigned randomVertex(unsigned vertexNum, unsigned currentVert) {
+	unsigned randomVertex;
+
+	if (vertexNum != 3) {
+		do {
+			randomVertex = rand() % vertexNum;
+		} while (randomVertex == currentVert);
+
+		return randomVertex;
+	}
+
+	return rand() % vertexNum;
+}
+
 int main()
 {
 	// Create a video mode object
@@ -28,7 +42,7 @@ int main()
 	vector<Vector2f> points;
 
 
-	unsigned vert, numberOfVertices;
+	unsigned vert{ UINT_MAX }, numberOfVertices;
 	bool end{};
 
 
@@ -110,15 +124,12 @@ int main()
 		{
 			///generate more point(s)
 			///select random vertex
-			vert = rand() % numberOfVertices;
+			vert = randomVertex(numberOfVertices, vert);
 			///calculate midpoint between random vertex and the last point in the 
 			///push back the newly generated coord
-			const float MAGIC_NUMBER = (numberOfVertices == 3) ? .5f : ((numberOfVertices == 4) ? (2.f / 3.f) : .618f);
+			const float MAGIC_NUMBER = (numberOfVertices == 3 || numberOfVertices == 4) ? .5f : .618f;
 			float newX = points.back().x + (vertices.at(vert).x - points.back().x) * MAGIC_NUMBER;
 			float newY = points.back().y + (vertices.at(vert).y - points.back().y) * MAGIC_NUMBER;
-
-			cout << "New Point X: " << newX << endl;
-			cout << "New Point Y: " << newY << endl;
 
 			points.push_back(Vector2f(newX, newY));
 
