@@ -33,7 +33,7 @@ int main()
 {
 	// Create a video mode object
 	srand(time(0));
-	size_t const POINTS_SIZE = 10000;
+	size_t const POINTS_SIZE = 100'000;
 	VideoMode vm(1920, 1080);
 	// Create and open a window for the game
 	RenderWindow window(vm, "Chaos Game!!", Style::Default);
@@ -124,15 +124,18 @@ int main()
 		{
 			///generate more point(s)
 			///select random vertex
-			vert = randomVertex(numberOfVertices, vert);
-			///calculate midpoint between random vertex and the last point in the 
-			///push back the newly generated coord
 			const float MAGIC_NUMBER = (numberOfVertices == 3 || numberOfVertices == 4) ? .5f : .618f;
-			float newX = points.back().x + (vertices.at(vert).x - points.back().x) * MAGIC_NUMBER;
-			float newY = points.back().y + (vertices.at(vert).y - points.back().y) * MAGIC_NUMBER;
 
-			points.push_back(Vector2f(newX, newY));
+			for (size_t i = 0; i < 500 && points.size() < POINTS_SIZE; ++i) {
+				vert = randomVertex(numberOfVertices, vert);
 
+				///calculate midpoint between random vertex and the last point in the 
+				///push back the newly generated 
+				float newX = points.back().x + (vertices.at(vert).x - points.back().x) * MAGIC_NUMBER;
+				float newY = points.back().y + (vertices.at(vert).y - points.back().y) * MAGIC_NUMBER;
+
+				points.push_back(Vector2f(newX, newY));
+			}
 			if (points.size() == POINTS_SIZE) {
 				cout << "Points total: " << points.size() << endl;
 			}
