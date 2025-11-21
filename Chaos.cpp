@@ -44,10 +44,15 @@ int main()
 
 	unsigned vert{ UINT_MAX }, numberOfVertices;
 	bool end{};
+	bool tryAgain{};
 
 
 	do {
-		cout << "Choose between 3 and 5 vertices to create the outline for your shape: " << endl;
+		if (tryAgain) { cout << "Not within the valid range . Try again." << endl; }
+		else {
+			cout << "Choose between 3 and 5 vertices to create the outline for your shape: " << endl;
+			tryAgain = true;
+		}
 		cin >> numberOfVertices;
 	} while (numberOfVertices < 3 || numberOfVertices > 5);
 
@@ -124,11 +129,10 @@ int main()
 		{
 			///generate more point(s)
 			///select random vertex
-			const float MAGIC_NUMBER = (numberOfVertices == 3 || numberOfVertices == 4) ? .5f : .618f;
 
 			for (size_t i = 0; i < 500 && points.size() < POINTS_SIZE; ++i) {
 				vert = randomVertex(numberOfVertices, vert);
-
+				const float MAGIC_NUMBER = (numberOfVertices == 3 || numberOfVertices == 4) ? .5f : .618f;
 				///calculate midpoint between random vertex and the last point in the 
 				///push back the newly generated 
 				float newX = points.back().x + (vertices.at(vert).x - points.back().x) * MAGIC_NUMBER;
