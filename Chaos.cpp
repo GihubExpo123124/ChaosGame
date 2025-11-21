@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
+#include <climits>
 #include <ctime>
 #include <cstdlib>
 #include <string>
@@ -43,7 +44,7 @@ int main()
 
 
 	unsigned vert{ UINT_MAX }, numberOfVertices;
-	bool end{};
+	
 	bool tryAgain{};
 
 
@@ -141,7 +142,8 @@ int main()
 				points.push_back(Vector2f(newX, newY));
 			}
 			if (points.size() == POINTS_SIZE) {
-				cout << "Points total: " << points.size() << endl;
+				text.setString("You're all done. 100,000 points plotted");
+				text.setFillColor(Color::Green);
 			}
 
 		}
@@ -152,11 +154,12 @@ int main()
 		****************************************
 		*/
 		window.clear();
-		for (int i = 0; i < vertices.size(); i++)
+		for (size_t i = 0; i < vertices.size(); i++)
 		{
 			RectangleShape rect(Vector2f(10, 10));
 			rect.setPosition(Vector2f(vertices[i].x, vertices[i].y));
 			rect.setFillColor(Color::Blue);
+			rect.setOrigin(5, 5);
 			window.draw(rect);
 		}
 
@@ -164,6 +167,7 @@ int main()
 		for (size_t i = 0; i < points.size(); i ++) {
 			RectangleShape rect(Vector2f(2.5f, 2.5));
 			rect.setPosition(points[i]);
+			rect.setOrigin(1.25f, 1.25f);
 			rect.setFillColor(Color::White);
 			window.draw(rect);
 		}
