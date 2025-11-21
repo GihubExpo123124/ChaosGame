@@ -130,12 +130,13 @@ int main()
 		{
 			///generate more point(s)
 			///select random vertex
-			const float MAGIC_NUMBER = (numberOfVertices == 3 || numberOfVertices == 4) ? .5f : .618f;
-
+			
 			for (size_t i = 0; i < 1000 && points.size() < POINTS_SIZE; ++i) {
 				vert = randomVertex(numberOfVertices, vert);
 				///calculate midpoint between random vertex and the last point in the 
 				///push back the newly generated 
+				const float MAGIC_NUMBER = (numberOfVertices == 3 || numberOfVertices == 4) ? .5f : .618f;
+
 				float newX = points.back().x + (vertices.at(vert).x - points.back().x) * MAGIC_NUMBER;
 				float newY = points.back().y + (vertices.at(vert).y - points.back().y) * MAGIC_NUMBER;
 
